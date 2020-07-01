@@ -1,4 +1,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Council Regions
+(def councils
+  {
+   "Adelaide Hills Council"                 {:wikidata "Q353997"}
+   "City of Adelaide"                       {:wikidata "Q1094063"}
+   "City of Burnside"                       {:wikidata "Q1016835"}
+   "City of Campbelltown"                   {:wikidata "Q1030580"}
+   "City of Charles Sturt"                  {:wikidata "Q1066185"}
+   "City of Holdfast Bay"                   {:wikidata "Q1624414"}
+   "City of Marion"                         {:wikidata "Q1812769"}
+   "City of Mitcham"                        {:wikidata "Q1279553"}
+   "City of Norwood, Payneham & St Peters"  {:wikidata "Q56477743"}
+   "City of Onkaparinga"                    {:wikidata "Q1812778"}
+   "City of Playford"                       {:wikidata "Q976355"}
+   "City of Port Adelaide Enfield"          {:wikidata "Q1533526"}
+   "City of Prospect"                       {:wikidata "Q1537228"}
+   "City of Salisbury"                      {:wikidata "Q947334"}
+   "City of Tea Tree Gully"                 {:wikidata "Q2062776"}
+   "City of Unley"                          {:wikidata "Q1766439"}
+   "City of West Torrens"                   {:wikidata "Q1813391"}
+   "Town of Gawler"                         {:wikidata "Q1847617"}
+   "Town of Walkerville"                    {:wikidata "Q1521840"}
+   }
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bus Terminus
 (def terminus
   {
