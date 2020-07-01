@@ -1,0 +1,17 @@
+* Adelaide Public Transport
+Digital Resources relating to Adelaide Public Transport (Adelaide, Australia)
+
+** Introduction
+These are mainly related to mapping Bus Routes with Open Street Maps, and managing the progress.
+
+If you would like to assist with updating this Open Street Map data, please send an email to paul at mawsonlakes dot org.
+
+** Background 
+
+Some initial work on Northern Bus Routes (222 etc) was done in 2013. In June 2020 the South Australian Government proposed a restructure of the bus routes.  They subsequently cancelled the proposal due to public feedback on the removing of some stops and services from the network. (This happended before the consultation period had been run to completion).
+
+The bus routes restructure was going to be used as an opportunity to update the route data in Open Street Map, which was in desperate need of some attention.
+
+** References
+
+Progress and outstanding issues can be tracked here:  https://ptna.openstreetmap.de/gtfs/AU/routes.php?network=AU-SA-Adelaide-Metro
