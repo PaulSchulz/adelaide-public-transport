@@ -14,4 +14,6 @@ The bus routes restructure was going to be used as an opportunity to update the 
 
 ** References
 
-Progress and outstanding issues can be tracked here:  https://ptna.openstreetmap.de/gtfs/AU/routes.php?network=AU-SA-Adelaide-Metro
+Progress and outstanding issues can be tracked here: https://ptna.openstreetmap.de/results/AU/SA/AU-SA-Adelaide-Metro-Analysis.html
+
+Route data from GTFS sources can be found here: https://ptna.openstreetmap.de/gtfs/AU/routes.php?network=AU-SA-Adelaide-Metro
