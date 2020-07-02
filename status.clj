@@ -8,6 +8,63 @@
    }
   )
 
+(def status
+  {:unknown       {:value       null
+                   :color       "white"
+                   :description "The details must be checked, status unknown"
+                   :action      "Check"
+                   :next        :complete
+                   }
+   :some          {:value       0
+                   :color       "red"
+                   :description "Contains little or no data"
+                   :action      "Complete"
+                   :next        :complete
+                   }
+   :partial       {:value       1
+                   :color       "orange"
+                   :description "Contains partial data"
+                   :action      "Complete"
+                   :next        :complete
+                   }
+   :most          {:value       2
+                   :color       "yellow"
+                   :description "Almost complete (describe what's missing"
+                   :action      "Complete"
+                   :next        :complete
+                   }
+   :complete      {:value       3
+                   :color       "cyan"
+                   :description "Complete (as a map)"
+                   :action      "Check and correct errors"
+                   :next        :verified
+                   }
+   :verified      {:value       4
+                   :color       "green"
+                   :description "Verified by 2 mappers. Indicate the date of the verification"
+                   :action      "Update as required"
+                   :next        :updated
+                   }
+   :updated       {:value       5
+                   :color       "blue"
+                   :description "Data has been updated"
+                   :action      "Verify data"
+                   :next        :verified
+                   }
+   :not-applicable {:value       "X"
+                    :color       :cross
+                    :description "The attribute does not exist in this area"
+                    :action      "Update as needed"
+                    :next        :complete
+                    }
+   :todo           {:value       -1
+                    :color       "purple"
+                    :description "Scheduled to be dome"
+                    :action      "Update as needed"
+                    :next        :complete
+                    }
+   })
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Council Regions
 (def councils
@@ -32,305 +89,329 @@
    "Town of Gawler"                         {:wikidata "Q1847617"}
    "Town of Walkerville"                    {:wikidata "Q1521840"}
    }
-
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Bus Terminus
-  (def terminus
-    {
-     :sellicks-beach-gulfview ["Sellicks Beach, Gulfview Road"          "146"]
-     :sellicks-beach-perth    ["Sellicks Beach, Perth St"               "137"]
-     :aldinga-shops           ["Aldinga Shopping Centre, Rowley Rd"     "117"]
-     :aldinga-beach           ["Aldinga Beach, John Nicholl Reserve"    "124"]
-     :port-willunga           ["Port Willunga, Quinliven Rd"            "113"]
-     :maslin-beach            ["Maslin Beach, Gulf Pde"                  "97"]
-     :willunga                ["Willunga, St Andrews Tce"               "97C"]
-     :mclaren-flat            ["McLaren Flat, Oakley Rd"                 "98"]
-     :mclaren-vale            ["McLaren Vale, main Road"                 "92"]
-     :seaford-centre          ["Seaford Centre, The Pde"                 "85"]
-     :seaford                 ["Seaford, Grand Bvd"                     "84B"]
-     :seaford-interchange     ["Seaford Interchange"                       ""]
-     :noarlunga-interchange   ["Noarlunga Centre Interchange"              ""]
-     :noarlunga-hospital      ["Noarlunga Hospital, Alexander Kelly Dr" "64A"]
-     :colonades-interchange   ["Colenades Centre Interchange"              ""]
-     ;; Hills
-     :verdun                  ["Verdun, Mt Barker Rd"                    "49"]
-     :mt-barker-dumas         ["Mount Barker, Dumas St Park ‘n’ Ride"      ""]
-     :mt-barker-dutton        ["Mount Barker, Dutton Rd Park ‘n’ Ride"   "65"]
-     :lobethal                ["Lobethal, Ridge Rd"                      "76"]
-    }
+;; Bus Terminus
+(def terminus
+  {
+   :sellicks-beach-gulfview ["Sellicks Beach, Gulfview Road"          "146"]
+   :sellicks-beach-perth    ["Sellicks Beach, Perth St"               "137"]
+   :aldinga-shops           ["Aldinga Shopping Centre, Rowley Rd"     "117"]
+   :aldinga-beach           ["Aldinga Beach, John Nicholl Reserve"    "124"]
+   :port-willunga           ["Port Willunga, Quinliven Rd"            "113"]
+   :maslin-beach            ["Maslin Beach, Gulf Pde"                  "97"]
+   :willunga                ["Willunga, St Andrews Tce"               "97C"]
+   :mclaren-flat            ["McLaren Flat, Oakley Rd"                 "98"]
+   :mclaren-vale            ["McLaren Vale, main Road"                 "92"]
+   :seaford-centre          ["Seaford Centre, The Pde"                 "85"]
+   :seaford                 ["Seaford, Grand Bvd"                     "84B"]
+   :seaford-interchange     ["Seaford Interchange"                       ""]
+   :noarlunga-interchange   ["Noarlunga Centre Interchange"              ""]
+   :noarlunga-hospital      ["Noarlunga Hospital, Alexander Kelly Dr" "64A"]
+   :colonades-interchange   ["Colenades Centre Interchange"              ""]
+   ;; Hills
+   :verdun                  ["Verdun, Mt Barker Rd"                    "49"]
+   :mt-barker-dumas         ["Mount Barker, Dumas St Park ‘n’ Ride"      ""]
+   :mt-barker-dutton        ["Mount Barker, Dutton Rd Park ‘n’ Ride"   "65"]
+   :lobethal                ["Lobethal, Ridge Rd"                      "76"]
+   }
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Routes
+;; Timetables
+(def timetables
+  {
+   :741-750-751-752-755-756
+   {:routes ["741" "750" "751" "752" "755" "756"]
+    :name "Southern Vales bus routes"
+    }
+   :830F-834-835
+   {:routes ["830F" "834" "835" "834A" "835A"]
+    :name "Lobethal to Verdun, Mt Barker and City"
+    }
+   })
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Route Numbers
+;; Routes
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Route Numbers
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (def routes {})
-  (def routes-status
-    {
-     ;; East West
-     "100"  {}
-     "101"  {}
-     "106"  {}
-     "110"  {}
-     "112"  {}
-     "115"  {}
-     "117"  {}
-     "118"  {}
-     "140"  {}
-     "141"  {}
-     "142"  {}
-     "144"  {}
-     "147"  {}
-     "150"  {}
-     "155"  {}
-     "157"  {}
-     "163"  {}
-     "167"  {}
-     "168"  {}
-     "170"  {}
-     "171"  {}
-     "172"  {}
-     "173"  {}
-     "174"  {}
-     "176"  {}
-     "178"  {}
-     "190"  {}
-     "195"  {}
-     "196"  {}
-     "197X" {}
-     "230"  {}
-     "232"  {}
-     "281"  {}
-     "286"  {}
-     "287"  {}
-     "288"  {}
-     "333"  {}
-     "371"  {}
-     "372"  {}
-     "376"  {}
-     "579"  {}
-     "580"  {}
-     "H20"  {}
-     "H21"  {}
-     "H22"  {}
-     "H23"  {}
-     "H24"  {}
-     "H30"  {}
-     "H32"  {}
-     "H33"  {}
-     "H33"  {}
-     "J1"   {}
-     "J1X"  {}
-     "J2"   {}
-     "J7"   {}
-     "J8"   {}
-     "N22"  {}
-     "N30"  {}
-     "N178" {}
-     "W90"  {}
-     "W91"  {}
-     "X30"  {}
-     ;; North South
-     "200"  {}
-     "202"  {}
-     "203"  {}
-     "206"  {}
-     "208"  {}
-     "209F" {}
-     "235"  {}
-     "238"  {}
-     "239"  {}
-     "241"  {}
-     "245"  {}
-     "248"  {}
-     "251"  {}
-     "252"  {}
-     "253"  {}
-     "254"  {}
-     "262"  {}
-     "263"  {}
-     "265"  {}
-     "271"  {}
-     "273"  {}
-     "300"  {}
-     "320"  {}
-     "361"  {}
-     "528"  {}
-     "600"  {}
-     "601"  {}
-     "605"  {}
-     "645"  {}
-     "646"  {}
-     "G10"  {}
-     "G20"  {}
-     "G21"  {}
-     "G22X" {}
-     "G30F" {}
-     "G40"  {}
-     "M44"  {}
-     "N10"  {}
-     "N21"  {}
-     "N262" {}
-     "N202" {}
-     "N254" {}
-     ;; Outer North
-     "222"  {}
-     "224"  {}
-     "225"  {}
-     "228"  {}
-     "229"  {}
-     "400"  {}
-     "401"  {}
-     "403"  {}
-     "404"  {}
-     "405"  {}
-     "411"  {}
-     "415"  {}
-     "421"  {}
-     "430"  {}
-     "440"  {}
-     "441"  {}
-     "442"  {}
-     "443"  {}
-     "451"  {}
-     "452"  {}
-     "461"  {}
-     "462"  {}
-     "491"  {}
-     "492A" {}
-     "492C" {}
-     "493"  {}
-     "494"  {}
-     "560"  {}
-     "565"  {}
-     "566"  {}
-     "900"  {}
-     "N224" {}
-     ;; Outer North East
-     "500"  {}
-     "501"  {}
-     "502"  {}
-     "503"  {}
-     "506"  {}
-     "507"  {}
-     "528"  {}
-     "530"  {}
-     "540"  {}
-     "541"  {}
-     "542"  {}
-     "543"  {}
-     "544"  {}
-     "545"  {}
-     "546"  {}
-     "548"  {}
-     "556"  {}
-     "557"  {}
-     "559"  {}
-     "578"  {}
-     "591A" {}
-     "591C" {}
-     "C1"   {}
-     "C2"   {}
-     "G40"  {}
-     "J1"   {}
-     "J2"   {}
-     "M44"  {}
-     "N1"   {}
-     "N502" {}
-     "N541" {}
-     "N542" {}
-     ;; Outer South
-     "640"  {}
-     "681"  {}
-     "682"  {}
-     "683"  {}
-     "719"  {}
-     "720"  {}
-     "721"  {}
-     "722"  {}
-     "723F" {}
-     "723X" {}
-     "725"  {}
-     "733"  {}
-     "734"  {}
-     "737"  {}
-     "741"  {}
-     "743"  {}
-     "744"  {}
-     "745"  {}
-     "747"  {}
-     "750"  {:josn-route :done
-             :josm-stops :todo
-             :check-gtfs :todo
-             }
-     "750R"  {:josm-route :done
-              :josm-stops :todo
-              :check-gtfs :todo
-              :comment "Multiple subroutes used"
-              }
-     "750A"  {:josm-route :done
-              :josm-stops :todo
-              :check-gtfs :todo
-              :comment "Single direction"
-              }
-     "750B"  {:josm-route :done
-              :josm-stops :todo
-              :check-gtfs :todo
-              :comment "Single direction"
-              }
-     "750C"  {:josm-route :done
-              :josm-stops :todo
-              :check-gtfs :todo
-              :comment "Single direction"
-              }
-     "751"  {}
-     "752"  {}
-     "755"  {}
-     "756"  {}
-     "N721" {}
-     ;; Hills
-     "820"  {}
-     "821"  {}
-     "822"  {}
-     "823"  {}
-     "830F" {:josm-route :todo
-             :josm-stops :todo
-             :check-gtfs :todo
-             :comment "Multiple subroutes used"
-             }
-     "834"  {:josm-route :todo
-             :josm-stops :todo
-             :check-gtfs :todo
-             :comment "Multiple subroutes used"
-             }
-     "835"  {:josm-route :todo
-             :josm-stops :todo
-             :check-gtfs :todo
-             :comment "Multiple subroutes used"
-             }
-    "837"  {}
-    "838"  {}
-    "839"  {}
-    "840X" {}
-    "841F" {}
-    "842X" {}
-    "850"  {}
-    "852"  {}
-    "860F" {}
-    "861"  {}
-    "863"  {}
-    "864"  {}
-    "865"  {}
-    "866"  {}
-    "892"  {}
-    "893"  {}
-    "894"  {}
-    "N864" {}
-    "T840" {}
-    "T842" {}
-    "T843" {}
-    "T863" {}
-    })
+(def routes {})
+(def routes-status
+  {
+   ;; East West
+   "100"  {}
+   "101"  {}
+   "106"  {}
+   "110"  {}
+   "112"  {}
+   "115"  {}
+   "117"  {}
+   "118"  {}
+   "140"  {}
+   "141"  {}
+   "142"  {}
+   "144"  {}
+   "147"  {}
+   "150"  {}
+   "155"  {}
+   "157"  {}
+   "163"  {}
+   "167"  {}
+   "168"  {}
+   "170"  {}
+   "171"  {}
+   "172"  {}
+   "173"  {}
+   "174"  {}
+   "176"  {}
+   "178"  {}
+   "190"  {}
+   "195"  {}
+   "196"  {}
+   "197X" {}
+   "230"  {}
+   "232"  {}
+   "281"  {}
+   "286"  {}
+   "287"  {}
+   "288"  {}
+   "333"  {}
+   "371"  {}
+   "372"  {}
+   "376"  {}
+   "579"  {}
+   "580"  {}
+   "H20"  {}
+   "H21"  {}
+   "H22"  {}
+   "H23"  {}
+   "H24"  {}
+   "H30"  {}
+   "H32"  {}
+   "H33"  {}
+   "H33"  {}
+   "J1"   {}
+   "J1X"  {}
+   "J2"   {}
+   "J7"   {}
+   "J8"   {}
+   "N22"  {}
+   "N30"  {}
+   "N178" {}
+   "W90"  {}
+   "W91"  {}
+   "X30"  {}
+   ;; North South
+   "200"  {}
+   "202"  {}
+   "203"  {}
+   "206"  {}
+   "208"  {}
+   "209F" {}
+   "235"  {}
+   "238"  {}
+   "239"  {}
+   "241"  {}
+   "245"  {}
+   "248"  {}
+   "251"  {}
+   "252"  {}
+   "253"  {}
+   "254"  {}
+   "262"  {}
+   "263"  {}
+   "265"  {}
+   "271"  {}
+   "273"  {}
+   "300"  {}
+   "320"  {}
+   "361"  {}
+   "528"  {}
+   "600"  {}
+   "601"  {}
+   "605"  {}
+   "645"  {}
+   "646"  {}
+   "G10"  {}
+   "G20"  {}
+   "G21"  {}
+   "G22X" {}
+   "G30F" {}
+   "G40"  {}
+   "M44"  {}
+   "N10"  {}
+   "N21"  {}
+   "N262" {}
+   "N202" {}
+   "N254" {}
+   ;; Outer North
+   "222"  {}
+   "224"  {}
+   "225"  {}
+   "228"  {}
+   "229"  {}
+   "400"  {}
+   "401"  {}
+   "403"  {}
+   "404"  {}
+   "405"  {}
+   "411"  {}
+   "415"  {}
+   "421"  {}
+   "430"  {}
+   "440"  {}
+   "441"  {}
+   "442"  {}
+   "443"  {}
+   "451"  {}
+   "452"  {}
+   "461"  {}
+   "462"  {}
+   "491"  {}
+   "492A" {}
+   "492C" {}
+   "493"  {}
+   "494"  {}
+   "560"  {}
+   "565"  {}
+   "566"  {}
+   "900"  {}
+   "N224" {}
+   ;; Outer North East
+   "500"  {}
+   "501"  {}
+   "502"  {}
+   "503"  {}
+   "506"  {}
+   "507"  {}
+   "528"  {}
+   "530"  {}
+   "540"  {}
+   "541"  {}
+   "542"  {}
+   "543"  {}
+   "544"  {}
+   "545"  {}
+   "546"  {}
+   "548"  {}
+   "556"  {}
+   "557"  {}
+   "559"  {}
+   "578"  {}
+   "591A" {}
+   "591C" {}
+   "C1"   {}
+   "C2"   {}
+   "G40"  {}
+   "J1"   {}
+   "J2"   {}
+   "M44"  {}
+   "N1"   {}
+   "N502" {}
+   "N541" {}
+   "N542" {}
+   ;; Outer South
+   "640"  {}
+   "681"  {}
+   "682"  {}
+   "683"  {}
+   "719"  {}
+   "720"  {}
+   "721"  {}
+   "722"  {}
+   "723F" {}
+   "723X" {}
+   "725"  {}
+   "733"  {}
+   "734"  {}
+   "737"  {}
+   "741"  {}
+   "743"  {}
+   "744"  {}
+   "745"  {}
+   "747"  {}
+   "750"  {:josn-route :done
+           :josm-stops :todo
+           :check-gtfs :todo
+           }
+   "750R"  {:josm-route :done
+            :josm-stops :todo
+            :check-gtfs :todo
+            :comment "Multiple subroutes used"
+            }
+   "750A"  {:josm-route :done
+            :josm-stops :todo
+            :check-gtfs :todo
+            :comment "Single direction"
+            }
+   "750B"  {:josm-route :done
+            :josm-stops :todo
+            :check-gtfs :todo
+            :comment "Single direction"
+            }
+   "750C"  {:josm-route :done
+            :josm-stops :todo
+            :check-gtfs :todo
+            :comment "Single direction"
+            }
+   "751"  {}
+   "752"  {}
+   "755"  {}
+   "756"  {}
+   "N721" {}
+   ;; Hills
+   "820"  {}
+   "821"  {}
+   "822"  {}
+   "823"  {}
+   "830F" {:josm-route :most
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment "Multiple subroutes used"
+           }
+   "834"  {:josm-route :todo
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment "Multiple subroutes used"
+           }
+   "834A"  {:josm-route :todo
+            :josm-stops :todo
+            :check-gtfs :todo
+            :comment "Multiple subroutes used"
+            }
+   "835"  {:josm-route :todo
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment "Multiple subroutes used"
+           }
+   "835A"  {:josm-route :todo
+            :josm-stops :todo
+            :check-gtfs :todo
+            :comment "Multiple subroutes used"
+            }
+   "837"  {}
+   "838"  {}
+   "839"  {}
+   "840X" {}
+   "841F" {}
+   "842X" {}
+   "850"  {}
+   "852"  {}
+   "860F" {}
+   "861"  {}
+   "863"  {}
+   "864"  {}
+   "865"  {}
+   "866"  {}
+   "892"  {}
+   "893"  {}
+   "894"  {}
+   "N864" {}
+   "T840" {}
+   "T842" {}
+   "T843" {}
+   "T863" {}
+   })
