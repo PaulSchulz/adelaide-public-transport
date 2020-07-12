@@ -8,6 +8,10 @@
    }
   )
 
+(def open-street-map
+  {:errata ["Fix: Roundabout North/East of Marino Train Station"]
+   })
+
 (def status
   {:unknown       {:value       null
                    :color       "white"
@@ -94,26 +98,35 @@
 ;; Bus Terminus
 (def terminus
   {
-   :sellicks-beach-gulfview ["Sellicks Beach, Gulfview Road"          "146"]
-   :sellicks-beach-perth    ["Sellicks Beach, Perth St"               "137"]
-   :aldinga-shops           ["Aldinga Shopping Centre, Rowley Rd"     "117"]
-   :aldinga-beach           ["Aldinga Beach, John Nicholl Reserve"    "124"]
-   :port-willunga           ["Port Willunga, Quinliven Rd"            "113"]
-   :maslin-beach            ["Maslin Beach, Gulf Pde"                  "97"]
-   :willunga                ["Willunga, St Andrews Tce"               "97C"]
-   :mclaren-flat            ["McLaren Flat, Oakley Rd"                 "98"]
-   :mclaren-vale            ["McLaren Vale, main Road"                 "92"]
-   :seaford-centre          ["Seaford Centre, The Pde"                 "85"]
-   :seaford                 ["Seaford, Grand Bvd"                     "84B"]
-   :seaford-interchange     ["Seaford Interchange"                       ""]
-   :noarlunga-interchange   ["Noarlunga Centre Interchange"              ""]
-   :noarlunga-hospital      ["Noarlunga Hospital, Alexander Kelly Dr" "64A"]
-   :colonades-interchange   ["Colenades Centre Interchange"              ""]
+   ;; City
+   :city-king-william-st      ["City, King William St"                   "B1"]
+   :city-king-william-rd      ["City, King William Rd"                   "Z2"]
+   ;; Outer South
+   :sellicks-beach-gulfview   ["Sellicks Beach, Gulfview Road"          "146"]
+   :sellicks-beach-perth      ["Sellicks Beach, Perth St"               "137"]
+   :aldinga-shops             ["Aldinga Shopping Centre, Rowley Rd"     "117"]
+   :aldinga-beach             ["Aldinga Beach, John Nicholl Reserve"    "124"]
+   :port-willunga             ["Port Willunga, Quinliven Rd"            "113"]
+   :maslin-beach              ["Maslin Beach, Gulf Pde"                  "97"]
+   :willunga                  ["Willunga, St Andrews Tce"               "97C"]
+   :mclaren-flat              ["McLaren Flat, Oakley Rd"                 "98"]
+   :mclaren-vale              ["McLaren Vale, main Road"                 "92"]
+   :seaford-centre            ["Seaford Centre, The Pde"                 "85"]
+   :seaford                   ["Seaford, Grand Bvd"                     "84B"]
+   :seaford-interchange       ["Seaford Interchange"                       ""]
+   :noarlunga-interchange     ["Noarlunga Centre Interchange"              ""]
+   :noarlunga-hospital        ["Noarlunga Hospital, Alexander Kelly Dr" "64A"]
+   :colonades-interchange     ["Colenades Centre Interchange"              ""]
+   :hallet-cove-interchange   ["Hallet Cove Interchange"                   ""]
+   :old-reynella-interchange  ["Old Reynella Interchange"                  ""]
+   :marino                    ["Marino, Newland Ave"                     "46"]
+   :flinders-university       ["Flinders University, Registry Rd"          ""]
+   :marion-centre-interchange ["Marion Centre Interchange"                 ""]
    ;; Hills
-   :verdun                  ["Verdun, Mt Barker Rd"                    "49"]
-   :mt-barker-dumas         ["Mount Barker, Dumas St Park ‘n’ Ride"      ""]
-   :mt-barker-dutton        ["Mount Barker, Dutton Rd Park ‘n’ Ride"   "65"]
-   :lobethal                ["Lobethal, Ridge Rd"                      "76"]
+   :verdun                    ["Verdun, Mt Barker Rd"                    "49"]
+   :mt-barker-dumas           ["Mount Barker, Dumas St Park ‘n’ Ride"      ""]
+   :mt-barker-dutton          ["Mount Barker, Dutton Rd Park ‘n’ Ride"   "65"]
+   :lobethal                  ["Lobethal, Ridge Rd"                      "76"]
    }
   )
 
@@ -121,13 +134,25 @@
 ;; Timetables
 (def timetables
   {
+   :640-719-720
+   {:routes      ["640" "719" "720" "720H"]
+    :name        "Old Reynella, Marino & Flinders University to Marion Centre & City"
+    :josm-routes :todo
+    }
    :741-750-751-752-755-756
-   {:routes ["741" "750" "751" "752" "755" "756"]
+   {:routes ["741" "751A"
+             "750" "750R" "750A" "750B" "750C" "750X"
+             "751" "751A" "751C" "751H" "751R" "751W"
+             "752"
+             "755"
+             "756"]
     :name "Southern Vales bus routes"
+    :josm-routes :complete
     }
    :830F-834-835
    {:routes ["830F" "834" "835" "834A" "835A"]
     :name "Lobethal to Verdun, Mt Barker and City"
+    josm-routes :complete
     }
    })
 
@@ -314,12 +339,37 @@
    "N541" {}
    "N542" {}
    ;; Outer South
-   "640"  {}
+   "640"  {:name "Marion Centre Interchange to Marino"
+           :josn-route :complete
+           :josm-nstops :todo
+           :check-gtfs :todo
+           :color      "light-green"
+           :errata-gtfs "Inbound: Stop 44 missed in GTFS"
+           }
    "681"  {}
    "682"  {}
    "683"  {}
-   "719"  {}
-   "720"  {}
+   "719"  {:name "Finders University to City"
+           :josn-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :color      "light-blue"
+           :errata-gtfs "In gtfs, Flinders stop (start) no in correct location."
+           }
+   "720"  {:name "Old Reynella to City"
+           :josn-route :todo
+           :josm-stops :todo
+           :check-gtfs :todo
+           :color      "light-green"
+           :errata-gtfs ""
+           }
+   "720H"  {:name "Old Reynella to City via Finders Medical Centre"
+            :josn-route :todo
+            :josm-stops :todo
+            :check-gtfs :todo
+            :color      "light-green"
+            :errata-gtfs ""
+            }
    "721"  {}
    "722"  {}
    "723F" {}
@@ -328,69 +378,153 @@
    "733"  {}
    "734"  {}
    "737"  {}
-   "741"  {}
+   "741"  {:name "Maslin Beach to Noarlunga Centre Interchange"
+           :josn-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :color      "cyan"
+           :errata-gtfs "Turnaround at end of route 741 not mapped"
+           }
+   "741A" {:name  "Maslin Beach to Noarlunga Centre Interchange"
+           :josn-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :color      "cyan"
+           }
    "743"  {}
    "744"  {}
    "745"  {}
    "747"  {}
-   "750"  {:josn-route :done
+   "750"  {:josn-route :complete
            :josm-stops :todo
            :check-gtfs :todo
+           :color      "red"
            }
-   "750R"  {:josm-route :done
+   "750R"  {:josm-route :complete
             :josm-stops :todo
             :check-gtfs :todo
-            :comment "Multiple subroutes used"
+            :comment    "Multiple subroutes used"
+            :color      "red"
             }
-   "750A"  {:josm-route :done
+   "750A"  {:josm-route :complete
             :josm-stops :todo
             :check-gtfs :todo
-            :comment "Single direction"
+            :comment    "Single direction"
+            :color      "red"
             }
-   "750B"  {:josm-route :done
+   "750B"  {:josm-route :complete
             :josm-stops :todo
             :check-gtfs :todo
-            :comment "Single direction"
+            :comment    "Single direction"
+            :color      "red"
             }
-   "750C"  {:josm-route :done
+   "750C"  {:josm-route :complete
             :josm-stops :todo
             :check-gtfs :todo
-            :comment "Single direction"
+            :comment    "Single direction"
+            :color      "red"
             }
-   "751"  {}
-   "752"  {}
-   "755"  {}
-   "756"  {}
+   "750X"{:josm-route :complete
+          :josm-stops :todo
+          :check-gtfs :todo
+          :comment    "Single direction"
+          :notes      "750X buses run express between Seaford Interchange and Aldinga Shopping Centre and service all stops between Aldinga Shopping Centre and Sellicks Beach."
+          :color       "red"
+          }
+   "751"  {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment    ""
+           :color      "yellow"
+           :errata-gtfs ["Beach Road/Hunt Cres round-a-bout incorrectly located 50m East"
+                         "Stop 81 Grand Blvd - West Side (18109) missing from inbound route"
+                         "Stop 81 Grand Blvd - East side (18108) missing from outbound route"
+                         "Outbond route misses Grand Blvd loop"]
+           }
+   "751A" {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment    ""
+           :color      "yellow"
+           :query-gtfs "Is loop around Grand Boulevard / South Pacific Dv correct?"
+           }
+   "751C" {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment    ""
+           :color      "yellow"
+           }
+   "751H" {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment    ""
+           :color      "yellow"
+           }
+   "751R" {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment    "Two routes towards Seaford"
+           :color      "yellow"
+           }
+   "751W" {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment    "Routes terminate in Willunga"
+           :color      "yellow"
+           }
+   "752"  {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :errata-gtf "McClaren Flat terminal incorrectly located in GTFS"
+           :color      "purple"
+           }
+   "755"  {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :errata-gtf "Doesn't go to Willunga school on every trip"
+           :color      "green"
+           }
+   "756"  {:josm-route :complete
+           :josm-stops :todo
+           :check-gtfs :todo
+           :comment    ""
+           :color      "brown"
+           :errate-gtfs ["Flyover at Victor Harbor Rd / Main Rd not mapped properly."
+                         "Seaford Interchange not mapped"]
+           }
    "N721" {}
    ;; Hills
    "820"  {}
    "821"  {}
    "822"  {}
    "823"  {}
-   "830F" {:josm-route :most
+   "830F" {:josm-route :complete
            :josm-stops :todo
            :check-gtfs :todo
-           :comment "Multiple subroutes used"
+           :comment    "Multiple subroutes used"
+           :errata     "Routing at end of route in Lobethal not shown correctly."
+           :color      "green"
            }
-   "834"  {:josm-route :todo
+   "834"  {:josm-route :complete
            :josm-stops :todo
            :check-gtfs :todo
-           :comment "Multiple subroutes used"
+           :comment    "Multiple subroutes used"
+           :color      "red"
            }
-   "834A"  {:josm-route :todo
+   "834A"  {:josm-route :complete
             :josm-stops :todo
             :check-gtfs :todo
-            :comment "Multiple subroutes used"
+            :comment    "red"
             }
-   "835"  {:josm-route :todo
+   "835"  {:josm-route :complete
            :josm-stops :todo
            :check-gtfs :todo
-           :comment "Multiple subroutes used"
+           :comment    "cyan"
            }
-   "835A"  {:josm-route :todo
+   "835A"  {:josm-route :complete
             :josm-stops :todo
             :check-gtfs :todo
-            :comment "Multiple subroutes used"
+            :comment    "cyan"
             }
    "837"  {}
    "838"  {}
